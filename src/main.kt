@@ -1,11 +1,21 @@
+import java.io.File
+
+class Client(N: Long) {
+    val S = generateS(N)
+    val V = calculateV(S, N)
+    val R = generatePrivateKey(N - 1)
+    val X = modularPow(R, 2, N)
+}
+
+fun generateClients(length: Long, N: Long) = Array(length.toInt(), {i -> Client(N)})
 
 fun pow(a: Long, b: Long) = Math.pow(a.toDouble(), b.toDouble()).toLong()
 
 fun generateS(N: Long): Long {
     var result: Long = 0
     while (true) {
-        result = generatePrivateKey(N)
-        if(modularPow(result, 1, N) == 1.toLong()) {
+        result = generatePrivateKey(N - 1)
+        if(gcd(result, N).first == 1.toLong()) {
             break
         }
     }
@@ -26,54 +36,40 @@ fun calculateY(R: Long, S: Long, N: Long, E: Long): Long {
 
 fun checkY(Y: Long, N: Long, X: Long, V: Long, E: Long): Boolean {
     var result: Long = modularPow(Y, 2, N)
-    if (E == 0.toLong()) {
-        if (result == X) {
-            return true
-        }
-    } else if (E == 1.toLong()) {
-        if (result == modularPow(X * V, 1, N)) {
-            return true
-        }
-    } else return false
+    when(E) {
+        0.toLong() -> return result == X
+        1.toLong() -> return result == modularPow(X * V, 1, N)
+    }
     return false
 }
 
+fun protocolStart(iter: Int, client: Array<Client>, N: Long) {
+    var checkTest = LongArray(iter) {i -> -1}
+    for(i in client.indices) {
+        val e = generateE()
+        val y = calculateY(client[i].R, client[i].S, N, e)
+        println("---------------------------------------")
+        println("Производится вход клиента №${i + 1}")
+        for(j in 0..iter) {
+            if(checkY(y, N, client[i].X, client[i].V, e)) {
+                println("Тест №${j + 1} клиента №${i + 1} прошел успешно")
+            } else {
+                println("Тест №${j + 1} клиента №${i + 1} не прошёл успешно")
+                println("Клиенту №${i + 1} не удалось войти")
+                break
+            }
+        }
+        println("Авторизация прошла успешно!")
+        println("----------------------------------------")
+    }
+}
+
 fun main() {
-/*
-    val p: Long = 683
-    val q: Long = 811
-    val n = p * q
-    val s: Long = 43215
-    val v = calculateV(s, n)
-    val r: Long = 38177
-
-    val x = modularPow(r, 2, n)
-
-   val y = calculateY(r, s, n, 1)
-
-    println(checkY(y, n, x, v, 1))
-*/
-    /*
-    val r = generatePrivateKey(N - 1)
-
-    val x = modularPow(r, 2, N) */
-
-
+    println("SERVER")
     val PQg = generatePQg(10000)
     val N = PQg.first * PQg.second
-    val S = generateS(N)
-
-    val V = calculateV(S, N)
-
-    for (i in 0..3) {
-        val r = generatePrivateKey(N - 1)
-        val x = modularPow(r, 2, N)
-
-        val e = generateE()
-
-        val y = calculateY(r, S, N, e)
-
-        println(checkY(y, N, x, V, e))
-
-    }
+    println("---------------------")
+    println("Client")
+    var client = generateClients(2, N)
+    protocolStart(3, client, N)
  }
