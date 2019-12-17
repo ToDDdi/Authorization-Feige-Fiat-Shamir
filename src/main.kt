@@ -50,7 +50,7 @@ fun protocolStart(iter: Int, client: Array<Client>, N: Long) {
         val y = calculateY(client[i].R, client[i].S, N, e)
         println("---------------------------------------")
         println("Производится вход клиента №${i + 1}")
-        for(j in 0..iter) {
+        for(j in 0..iter - 1) {
             if(checkY(y, N, client[i].X, client[i].V, e)) {
                 println("Тест №${j + 1} клиента №${i + 1} прошел успешно")
             } else {
@@ -71,5 +71,5 @@ fun main() {
     println("---------------------")
     println("Client")
     var client = generateClients(2, N)
-    protocolStart(3, client, N)
+    protocolStart(10, client, N)
  }
