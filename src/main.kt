@@ -1,4 +1,4 @@
-import java.io.File
+/*import java.io.File
 
 class Client(N: Long) {
     val S = generateS(N)
@@ -72,4 +72,4 @@ fun main() {
     println("Client")
     var client = generateClients(2, N)
     protocolStart(10, client, N)
- }
+ } */

@@ -24,23 +24,18 @@ class ClientHandler(client: Socket) {
     private val client: Socket = client
     private val reader: Scanner = Scanner(client.getInputStream())
     private val writer: OutputStream = client.getOutputStream()
-    private val calculator: Calculator = Calculator()
     private var running: Boolean = false
     private val PQg: Triple<Long, Long, Long> = generatePQg(10000)
     private val N: Long = PQg.first * PQg.second
     private var dataKey: Long = 0
     private var clientX: Long = 0
     private var E: Long = 0
+    private var iter: Long = 0
+    private val T: Long = 4
 
     fun run() {
         running = true
-        // Welcome message
-        /*write("Welcome to the server!\n" +
-                "To Exit, write: 'EXIT'.\n" +
-                "To use the calculator, input two numbers separated with a space and an operation in the ending\n" +
-                "Example: 5 33 multi\n" +
-                "Available operations: 'add', 'sub', 'div', 'multi'")
-        write("N ${N}")*/
+
         write("N ${N}")
 
         while (running) {
@@ -55,7 +50,6 @@ class ClientHandler(client: Socket) {
                 checkMessage(text)
 
             } catch (ex: Exception) {
-                // TODO: Implement exception handling
                 shutdown()
             } finally {
 
@@ -84,15 +78,25 @@ class ClientHandler(client: Socket) {
             }
             "X" -> {
                 this.clientX = check[1].toLong()
-                this.E = generateE()
-                write("E ${this.E}")
+                for(i in 0..T) {
+                    this.E = generateE()
+                    write("E ${this.E} ${i + 1}")
+                }
             }
             "Y" -> {
-                if(checkY(check[1].toLong(), this.N, this.clientX, this.dataKey, this.E)) {
-                    write("Авторизация прошла успешно")
-                } else write("Авторизация не прошла")
-
-            }
+                    this.E = check[2].toLong()
+                    if (checkY(check[1].toLong(), this.N, this.clientX, this.dataKey, this.E)) {
+                        println("Тест №${this.iter + 1} Прошёл успешно из ${this.T + 1}")
+                        iter++
+                    } else {
+                        write("Авторизация не прошла, соединение закрыто")
+                        write("exit")
+                    }
+                    if (iter == T + 1) {
+                        write("Вы авторизировались")
+                        println("Пользователь авторизировался")
+                    }
+                }
         }
     }
 

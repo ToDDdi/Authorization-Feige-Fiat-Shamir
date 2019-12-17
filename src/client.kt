@@ -55,12 +55,19 @@ class Client(address: String, port: Int) {
                 this.R = generatePrivateKey(this.N - 1)
                 this.X = modularPow(this.R, 2, this.N)
                 write("X ${this.X}")
-                println("Send X")
+                println("Отправка X\n")
             }
             "E" -> {
                 this.E = check[1].toLong()
-                println("Send Y")
-                write("Y ${calculateY(this.R, this.S, this.N, this.E)}")
+                println("----------------------------------------------")
+                println("Вычисление и отправка Y для теста №${check[2]}")
+                println("----------------------------------------------")
+                write("Y ${calculateY(this.R, this.S, this.N, this.E)} ${this.E}")
+            }
+            "exit" -> {
+                connected = false
+                reader.close()
+                connection.close()
             }
             else -> println(message)
         }
