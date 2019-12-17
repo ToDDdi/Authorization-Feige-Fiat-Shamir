@@ -9,13 +9,14 @@ fun main(args: Array<String>) {
     val address = "localhost"
     val port = 9999
 
-    val client = Client(address, port)
+    val client = Client(address, port, false)
     client.run()
 }
 
-class Client(address: String, port: Int) {
+class Client(address: String, port: Int, flag: Boolean) {
     private val connection: Socket = Socket(address, port)
     private var connected: Boolean = true
+    private val flag = flag
     private var N: Long = 0
     private var S: Long = 0
     private var V: Long = 0
@@ -49,13 +50,13 @@ class Client(address: String, port: Int) {
             "N" -> {
                 this.N = check[1].toLong()
                 authorization(check[1].toLong())
-                println("AVTORIZATION")
+
             }
             "R" -> {
                 this.R = generatePrivateKey(this.N - 1)
                 this.X = modularPow(this.R, 2, this.N)
                 write("X ${this.X}")
-                println("Отправка X\n")
+                println("Отправка X")
             }
             "E" -> {
                 this.E = check[1].toLong()
@@ -94,9 +95,20 @@ class Client(address: String, port: Int) {
 
     private fun calculateY(R: Long, S: Long, N: Long, E: Long): Long {
         var result: Long = 0
-        if(E == 0.toLong()) {
+        when (this.flag) {
+            false -> when (E) {
+                0.toLong() -> result = R
+                1.toLong() -> result = modularPow(R * S, 1, N)
+            }
+            true -> when (E) {
+                0.toLong() -> result = R
+                1.toLong() -> result = R * 2
+            }
+        }
+
+        /*if(E == 0.toLong()) {
             result = R
-        } else result = modularPow(R * S, 1, N)
+        } else result = modularPow(R * S, 1, N) */
         return result
     }
 }

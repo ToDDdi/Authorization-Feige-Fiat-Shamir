@@ -30,8 +30,8 @@ class ClientHandler(client: Socket) {
     private var dataKey: Long = 0
     private var clientX: Long = 0
     private var E: Long = 0
-    private var iter: Long = 0
-    private val T: Long = 4
+    private var level: Long = 0
+    private val levelAuthorization: Long = 4
 
     fun run() {
         running = true
@@ -78,7 +78,7 @@ class ClientHandler(client: Socket) {
             }
             "X" -> {
                 this.clientX = check[1].toLong()
-                for(i in 0..T) {
+                for(i in 0..levelAuthorization) {
                     this.E = generateE()
                     write("E ${this.E} ${i + 1}")
                 }
@@ -86,13 +86,14 @@ class ClientHandler(client: Socket) {
             "Y" -> {
                     this.E = check[2].toLong()
                     if (checkY(check[1].toLong(), this.N, this.clientX, this.dataKey, this.E)) {
-                        println("Тест №${this.iter + 1} Прошёл успешно из ${this.T + 1}")
-                        iter++
+                        println("Тест №${this.level + 1} Прошёл успешно из ${this.levelAuthorization + 1}")
+                        level++
                     } else {
                         write("Авторизация не прошла, соединение закрыто")
+                        println("Пользователь не прошёл проверку, соединение закрыто")
                         write("exit")
                     }
-                    if (iter == T + 1) {
+                    if (level == levelAuthorization + 1) {
                         write("Вы авторизировались")
                         println("Пользователь авторизировался")
                     }
