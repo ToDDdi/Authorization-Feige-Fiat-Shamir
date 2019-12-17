@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="e03e8ad5-f8c4-494d-8548-00564d66f34c" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ZIRGZ/Client$run$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ZIRGZ/Client$run$1.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ZIRGZ/Client.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ZIRGZ/Client.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ZIRGZ/ClientHandler.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ZIRGZ/ClientHandler.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ZIRGZ/ClientKt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ZIRGZ/ClientKt.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/ZIRGZ/META-INF/ZIRGZ.kotlin_module" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ZIRGZ/META-INF/ZIRGZ.kotlin_module" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/ZIRGZ/ServerKt.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/ZIRGZ/ServerKt.class" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/client.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/client.kt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/server.kt" beforeDir="false" afterPath="$PROJECT_DIR$/src/server.kt" afterDir="false" />
@@ -121,8 +118,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Kotlin.BurglarKt" />
         <item itemvalue="Kotlin.ClientKt" />
+        <item itemvalue="Kotlin.BurglarKt" />
         <item itemvalue="Kotlin.ServerKt" />
         <item itemvalue="Kotlin.MainKt" />
         <item itemvalue="Kotlin.Main" />
@@ -146,7 +143,7 @@
       <workItem from="1576298960087" duration="374000" />
       <workItem from="1576513867320" duration="859000" />
       <workItem from="1576520137232" duration="2563000" />
-      <workItem from="1576582826493" duration="5597000" />
+      <workItem from="1576582826493" duration="6529000" />
     </task>
     <servers />
   </component>

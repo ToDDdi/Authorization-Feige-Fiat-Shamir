@@ -86,9 +86,14 @@ class ClientHandler(client: Socket) {
             "Y" -> {
                     this.E = check[2].toLong()
                     if (checkY(check[1].toLong(), this.N, this.clientX, this.dataKey, this.E)) {
-                        println("Тест №${this.level + 1} Прошёл успешно из ${this.levelAuthorization + 1}")
+                        write("----------------------------------------------")
+                        write("Тест №${this.level + 1} прошел успешно прошёл проверку")
+                        write("----------------------------------------------")
                         level++
                     } else {
+                        write("----------------------------------------------")
+                        write("Тест №${this.level + 1} не прошёл проверку")
+                        write("----------------------------------------------")
                         write("Авторизация не прошла, соединение закрыто")
                         println("Пользователь не прошёл проверку, соединение закрыто")
                         write("exit")

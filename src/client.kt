@@ -60,9 +60,7 @@ class Client(address: String, port: Int, flag: Boolean) {
             }
             "E" -> {
                 this.E = check[1].toLong()
-                println("----------------------------------------------")
-                println("Вычисление и отправка Y для теста №${check[2]}")
-                println("----------------------------------------------")
+
                 write("Y ${calculateY(this.R, this.S, this.N, this.E)} ${this.E}")
             }
             "exit" -> {
